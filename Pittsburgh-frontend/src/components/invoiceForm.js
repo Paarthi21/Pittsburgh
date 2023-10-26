@@ -52,7 +52,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { type } from "jquery";
 import PublishIcon from '@mui/icons-material/Publish';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import companyLogo from "../images/Company_logo.png"
+import companyLogo from "../images/logo6.png"
 
 /***********************InvoiceForm component using function approach****************************/
 export default function InvoiceForm(props){
@@ -70,7 +70,6 @@ export default function InvoiceForm(props){
   const [toAddress,setToAddress]=useState([])
   const [invoiceNo,setInvoiceNo]=useState([])
   const [phoneNo,setPhoneNo]=useState([])
-  const [des,setDes]=useState([])
   const [category,setCategory]=useState([])
   const [date, setDate] = useState(null);
   const [display,setDisplay]=useState(false)
@@ -100,10 +99,11 @@ export default function InvoiceForm(props){
   const [lastName,setLastName]=useState([])
   const [address,setAddress]=useState([])
   const [ZIPcode,setZIPCode]=useState([])  
+  const [des,setDes]=useState([])
 
   let img =props.responsedata[index].pdf_image
   let userGivendes , userGivenAmount;
-  let bill_of_materials=props.responsedata[index]
+  let input_values=props.responsedata[index]
   let i=0;
   
   /* This is used to define the date if we click submit */
@@ -333,6 +333,8 @@ export default function InvoiceForm(props){
       setFirstName((prevFirstName) => prevFirstName.concat(tableData.map((item) => item.first_name)))
       setLastName((prevLastName) => prevLastName.concat(tableData.map((item) => item.last_name)))
       setAddress((prevAddress) => prevAddress.concat(tableData.map((item) => item.address)))
+      setDes(input_values.description)
+      console.log(des)
     }  
    }, [tableData])
    
@@ -454,7 +456,7 @@ export default function InvoiceForm(props){
                         <img
                         src={companyLogo}
                         alt="logo"
-                        style={{ width: '160px', height: '60px' }}/>
+                        style={{ width: '170px', height: '50px' }}/>
                       </div>
                     </div>
                       <hr></hr>
@@ -534,7 +536,7 @@ export default function InvoiceForm(props){
                                   <Grid item xs={12}>
                                   <TextField 
                                     key={"okayg_" + (10000 + Math.random() * (1000000 - 10000))}
-                                    defaultValue={address[index].slice(0, -1).join(', ')}
+                                    defaultValue={"RETURN TO SENDER "+des[0]+" UNABLE TO FORWARD UNLESS HEAVY OR CARD-POSTAGE DUE = "+ (des[1] == "" ? 60 : des[1])}
                                     id="description" 
                                     label="Description" 
                                     variant="outlined"                                    
@@ -710,7 +712,7 @@ export default function InvoiceForm(props){
                         <img
                         src={companyLogo}
                         alt="logo"
-                        style={{ width: '160px', height: '60px' }}/>
+                        style={{ width: '170px', height: '50px' }}/>
                       </div>
                     </div>
                       <hr></hr>
@@ -794,6 +796,20 @@ export default function InvoiceForm(props){
                                     type="text"
                                     color="primary" focused
                                     />
+                                  </Grid>
+                                  <Grid item xs={12}>
+                                  <TextField 
+                                    key={"okayg_" + (10000 + Math.random() * (1000000 - 10000))}
+                                    defaultValue={"RETURN TO SENDER "+des[0]+" UNABLE TO FORWARD UNLESS HEAVY OR CARD-POSTAGE DUE = "+ (des[1]==""? 60 :des[1])}
+                                    id="description" 
+                                    label="Description" 
+                                    variant="outlined"                                    
+                                    autoFocus
+                                    multiline
+                                    fullWidth
+                                    margin="dense"
+                                    type="text"
+                                    color="primary" focused/>
                                   </Grid>
                                 </Grid>
                               </Grid>
